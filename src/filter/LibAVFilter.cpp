@@ -120,7 +120,7 @@ public:
         // pixel_aspect==sar, pixel_aspect is more compatible
         QString buffersrc_args = args;
         qDebug("buffersrc_args=%s", buffersrc_args.toUtf8().constData());
-        AVFilter *buffersrc  = avfilter_get_by_name(video ? "buffer" : "abuffer");
+        const AVFilter *buffersrc  = avfilter_get_by_name(video ? "buffer" : "abuffer");
         Q_ASSERT(buffersrc);
         AV_ENSURE_OK(avfilter_graph_create_filter(&in_filter_ctx,
                                                buffersrc,
@@ -128,7 +128,7 @@ public:
                                                filter_graph)
                      , false);
         /* buffer video sink: to terminate the filter chain. */
-        AVFilter *buffersink = avfilter_get_by_name(video ? "buffersink" : "abuffersink");
+        const AVFilter *buffersink = avfilter_get_by_name(video ? "buffersink" : "abuffersink");
         Q_ASSERT(buffersink);
         AV_ENSURE_OK(avfilter_graph_create_filter(&out_filter_ctx, buffersink, "out",
                                            NULL, NULL, filter_graph)
